@@ -71,7 +71,7 @@ func (c *controller) Create(context *gin.Context) {
 
 func (c *controller) Delete(context *gin.Context) {
 	videoToDelete := models.Video{}
-	if err := context.ShouldBindJSON(&videoToDelete); err != nil {
+	if err := context.ShouldBindUri(&videoToDelete); err != nil {
 		context.String(400, "bad request %v", err)
 		return
 	}
