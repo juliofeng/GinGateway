@@ -2,10 +2,7 @@ module github.com/juliofeng/GinGateway
 
 go 1.20
 
-require (
-	github.com/HanFa/learn-go/gin-example v0.0.0-20210816193547-2f566da8b9fc
-	github.com/gin-gonic/gin v1.9.1
-)
+require github.com/gin-gonic/gin v1.9.1
 
 require (
 	github.com/bytedance/sonic v1.9.1 // indirect

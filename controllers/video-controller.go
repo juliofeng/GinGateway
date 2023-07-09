@@ -18,7 +18,7 @@ type controller struct {
 }
 
 func NewVideoController() VideoController {
-	return &controller{}
+	return &controller{videos: make([]models.Video, 0)}
 }
 
 type generator struct {
@@ -38,12 +38,25 @@ var g *generator = &generator{}
 func (c *controller) GetAll(context *gin.Context) {
 	context.JSON(200, c.videos)
 }
+
 func (c *controller) Update(context *gin.Context) {
-	var video models.Video
-	if err := context.ShouldBindJSON(&video); err != nil {
+	var videoToUpdate models.Video
+	if err := context.ShouldBindUri(&videoToUpdate); err != nil {
 		context.String(400, "bad request %v", err)
 		return
 	}
+	if err := context.ShouldBind(&videoToUpdate); err != nil {
+		context.String(400, "bad request %v", err)
+		return
+	}
+	for idx, video := range c.videos {
+		if video.Id == videoToUpdate.Id {
+			c.videos[idx] = videoToUpdate
+			context.String(200, "success, video with id %d has been updated", videoToUpdate.Id)
+			return
+		}
+	}
+	context.String(400, "bad request cannot find video with %d to update", videoToUpdate.Id)
 }
 
 func (c *controller) Create(context *gin.Context) {

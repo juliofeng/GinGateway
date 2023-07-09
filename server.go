@@ -19,10 +19,10 @@ func main() {
 	server.StaticFile("/mycoolvideo", "./resources/Disney.mp4")
 
 	videoController := controllers.NewVideoController()
-	videoGroup := server.Group("/video")
+	videoGroup := server.Group("/videos")
 	videoGroup.GET("/", videoController.GetAll)
-	videoGroup.PUT("/:id", videoController.Update)
 	videoGroup.POST("/", videoController.Create)
+	videoGroup.PUT("/:id", videoController.Update)
 	videoGroup.DELETE("/:id", videoController.Delete)
 
 	log.Fatalln(server.Run("localhost:8080"))
