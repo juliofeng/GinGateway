@@ -1,4 +1,4 @@
-module julio/gin-example
+module github.com/juliofeng/GinGateway
 
 go 1.20
 
