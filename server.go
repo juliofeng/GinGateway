@@ -2,7 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/juliofeng/GinGateway/models"
+	"github.com/juliofeng/GinGateway/controllers"
 	"log"
 )
 
@@ -18,8 +18,12 @@ func main() {
 	server.Static("/resources", "./resources")
 	server.StaticFile("/mycoolvideo", "./resources/Disney.mp4")
 
-	models.Video{}
-	//videoController := NewVideoController()
+	videoController := controllers.NewVideoController()
+	videoGroup := server.Group("/video")
+	videoGroup.GET("/", videoController.GetAll)
+	videoGroup.PUT("/:id", videoController.Update)
+	videoGroup.POST("/", videoController.Create)
+	videoGroup.DELETE("/:id", videoController.Delete)
 
 	log.Fatalln(server.Run("localhost:8080"))
 }

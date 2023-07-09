@@ -1,7 +1,7 @@
 package models
 
 type Video struct {
-	ID          int
-	Title       string
-	Description string
+	Id          int    `uri:"id"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
 }
